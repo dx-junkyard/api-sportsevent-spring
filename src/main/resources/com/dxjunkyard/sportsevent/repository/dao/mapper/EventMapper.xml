@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dxjunkyard.sportsevent.repository.dao.mapper.EventMapper">
+    <insert id="addEvent">
+        insert into events(title,owner_id,time_from,time_to,comment,place_id,event_type)
+        values(#{title},#{ownerId},#{timeFrom},#{timeTo},#{comment},#{placeId},#{eventType})
+    </insert>
+    <select id="getEvent" resultType="com.dxjunkyard.sportsevent.domain.Event">
+        select
+               event_id
+             , title
+             , owner_id as ownerId
+             , time_from as timeFrom
+             , tome_to as timeTo
+             , place_id as placeId
+             , event_type as eventType
+        from Events
+        where event_id = #{event_id}
+    </select>
+    <select id="getSportEvent" resultType="com.dxjunkyard.sportsevent.domain.SportEvent">
+        select
+               se.sport_event_id
+             , se.name
+             , se.comment
+        from SportEvents as se
+        left join IncludeSportEvents as ise
+            on se.sport_event_id = ise.sport_event_id
+        where ise.event_id = #{event_id}
+    </select>
+</mapper>
