@@ -29,10 +29,10 @@ public class Controller {
             @RequestBody AddEventRequest request){
         logger.info("event API");
         try {
-            eventService.addEvent(EventDto.event(request));
+            eventService.addEvent(request);
             return NormalResponse.builder().result("OK").build();
         } catch (Exception e) {
-            logger.info("event" + e.getMessage());
+            logger.debug("event" + e.getMessage());
             return NormalResponse.builder().result("NG").build();
         }
     }
@@ -46,9 +46,12 @@ public class Controller {
             @RequestParam("eventId") Integer eventId) {
         logger.info("event API");
         try {
+            // todo : parameter validation : eventId
             GetEventsResponse response = eventService.getEvent(eventId);
             return response;
         } catch (Exception e) {
+            logger.info("getEvent error : eventId = " + eventId.toString());
+            logger.debug("event" + e.getMessage());
             return GetEventsResponse.builder().build();
         }
     }

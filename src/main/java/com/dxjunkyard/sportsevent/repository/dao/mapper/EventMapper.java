@@ -9,6 +9,7 @@ import java.util.List;
 @Mapper
 public interface EventMapper {
     void addEvent(Event event);
+    void addIncludeSportEvent(Integer sportEventId);
     List<Event> getEvent(Integer eventId);
-    List<SportEvent> getSportEvent(Integer eventId);
+    List<SportEvent> getIncludedSportEvents(Integer eventId);
 }

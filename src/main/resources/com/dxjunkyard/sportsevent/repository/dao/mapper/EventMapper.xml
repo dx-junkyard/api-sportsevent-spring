@@ -7,23 +7,27 @@
         insert into events(title,owner_id,time_from,time_to,comment,place_id,event_type)
         values(#{title},#{ownerId},#{timeFrom},#{timeTo},#{comment},#{placeId},#{eventType})
     </insert>
+    <insert id="addIncludeSportEvent">
+        insert into IncludeSportEvents(event_id,sport_event_id)
+        values((select auto_increment from information_schema.tables where table_schema = (select database()) and table_name = 'Events'),#{sportEventId})
+    </insert>
     <select id="getEvent" resultType="com.dxjunkyard.sportsevent.domain.Event">
         select
-               event_id
+               event_id as eventId
              , title
              , owner_id as ownerId
              , time_from as timeFrom
-             , tome_to as timeTo
+             , time_to as timeTo
              , place_id as placeId
              , event_type as eventType
         from Events
-        where event_id = #{event_id}
+        where event_id = #{eventId}
     </select>
-    <select id="getSportEvent" resultType="com.dxjunkyard.sportsevent.domain.SportEvent">
+    <select id="getIncludedSportEvents" resultType="com.dxjunkyard.sportsevent.domain.SportEvent">
         select
-               se.sport_event_id
-             , se.name
-             , se.comment
+               se.sport_event_id as sportEventId
+             , se.name as name
+             , se.comment as comment
         from SportEvents as se
         left join IncludeSportEvents as ise
             on se.sport_event_id = ise.sport_event_id

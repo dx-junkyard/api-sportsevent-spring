@@ -7,16 +7,18 @@ import com.sun.jdi.request.EventRequest;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class EventDto {
     public static Event event(AddEventRequest request) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        Date time_from;
-        Date time_to;
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime time_from;
+        LocalDateTime time_to;
         try {
-            time_from = sdf.parse(request.getTimeFrom());
-            time_to = sdf.parse(request.getTimeTo());
+            time_from = LocalDateTime.parse(request.getTimeFrom(),dtf);
+            time_to = LocalDateTime.parse(request.getTimeTo(),dtf);
         } catch (Exception e) {
             return null;
         }

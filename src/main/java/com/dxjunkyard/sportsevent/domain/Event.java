@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -16,8 +17,8 @@ public class Event {
     private Integer eventId;
     private String title;
     private String ownerId;
-    private Date timeFrom;
-    private Date timeTo;
+    private LocalDateTime timeFrom;
+    private LocalDateTime timeTo;
     private String comment;
     private Integer placeId;
     private Integer eventType;
