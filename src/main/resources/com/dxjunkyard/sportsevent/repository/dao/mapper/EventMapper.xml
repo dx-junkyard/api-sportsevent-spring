@@ -9,6 +9,10 @@
     </insert>
     <insert id="addIncludeSportEvent">
         insert into IncludeSportEvents(event_id,sport_event_id)
+        values((select max(ev.event_id) from Events ev),#{sportEventId})
+    </insert>
+    <insert id="addIncludeSportEvent_old">
+        insert into IncludeSportEvents(event_id,sport_event_id)
         values((select auto_increment from information_schema.tables where table_schema = (select database()) and table_name = 'Events'),#{sportEventId})
     </insert>
     <select id="getEvent" resultType="com.dxjunkyard.sportsevent.domain.Event">
